@@ -1,0 +1,10 @@
+23 + 2
+23 + 2
+hello
+hello
+2_1/2 - 3/4
+2_1/2 - 3/4
+monkey kong
+monkey kong
+help
+<ignore>
