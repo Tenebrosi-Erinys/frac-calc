@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 public class FracCalc{
    public static Scanner userInput = new Scanner(System.in); 
    public static void main(String args[]){
@@ -26,11 +26,13 @@ public class FracCalc{
          return "";
       } else if(input.toLowerCase().startsWith("help")){
          return processHelp(input);
+      } else if(input.matches("^\\d+\\.?\\d* *[+\\-*/] *\\d+\\.?\\d*$")){
+         return(processExpression(input));
       } else if(input.toLowerCase().matches("let'?s play.*")){
          return "Game over.";
       } else if(input.toLowerCase().startsWith("command")){
          return "What command?";
-      }  else if(input.toLowerCase().startsWith("something")){
+      } else if(input.toLowerCase().startsWith("something")){
          return "Cheeky.";
       } else if(!input.toLowerCase().startsWith("quit")){
          return input;
@@ -54,8 +56,35 @@ public class FracCalc{
          } else {
             return input.substring(5) + " is not a valid command";
          }
-      } else{
+      } else {
          return "Your commands are\n1: Help\n2: Quit\n3: Test 1\nEnter Help <command> for details";
       }
+   }
+   public static String processExpression(String input){
+      input = input.replaceAll("\\s","");
+      //find the index of the +-*/ character
+      int index;
+      if(input.contains("+")){
+         index = input.indexOf("+");
+      } else if(input.contains("-")){
+         index = input.indexOf("-");
+      } else if(input.contains("*")){
+         index = input.indexOf("*");
+      } else {
+         index = input.indexOf("/");
+      }
+      double firstPart = Double.parseDouble(input.substring(0, index));
+      double secondPart = Double.parseDouble(input.substring(index + 1));
+      String returnValue;
+      if(input.contains("+")){
+         returnValue = firstPart + secondPart + "";
+      } else if(input.contains("-")){
+         returnValue = firstPart - secondPart + "";
+      } else if(input.contains("*")){
+         returnValue = firstPart * secondPart + "";
+      } else {
+         returnValue = firstPart / secondPart + "";
+      }
+      return returnValue;
    }
 }
