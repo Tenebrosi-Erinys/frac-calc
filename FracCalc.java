@@ -26,7 +26,7 @@ public class FracCalc{
          return "";
       } else if(input.toLowerCase().startsWith("help")){
          return processHelp(input);
-      } else if(input.matches("^\\d+\\.?\\d* *[+\\-*/] *\\d+\\.?\\d*$")){
+      } else if(input.matches("\\d+/?\\d*[+-*]\\d+/?\\d*")){
          return(processExpression(input));
       } else if(input.toLowerCase().matches("let'?s play.*")){
          return "Game over.";
@@ -62,10 +62,11 @@ public class FracCalc{
    }
    public static String processExpression(String input){
       input = input.replaceAll("\\s","");
-      //find the index of the +-*/ character
-      int index;
+      //find the index of the first +-*/ character
+      int index = 0;
+      char obj;
       if(input.contains("+")){
-         index = input.indexOf("+");
+         obj = '+';
       } else if(input.contains("-")){
          index = input.indexOf("-");
       } else if(input.contains("*")){
@@ -75,16 +76,7 @@ public class FracCalc{
       }
       double firstPart = Double.parseDouble(input.substring(0, index));
       double secondPart = Double.parseDouble(input.substring(index + 1));
-      String returnValue;
-      if(input.contains("+")){
-         returnValue = firstPart + secondPart + "";
-      } else if(input.contains("-")){
-         returnValue = firstPart - secondPart + "";
-      } else if(input.contains("*")){
-         returnValue = firstPart * secondPart + "";
-      } else {
-         returnValue = firstPart / secondPart + "";
-      }
+      String returnValue = "";
       return returnValue;
    }
 }
