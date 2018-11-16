@@ -32,26 +32,6 @@ public class FracCalc{
       }
    }
    public static String processHelp(String input){
-      Scanner parser = new Scanner(input);
-      if(input.length() >= 5){
-         if(input.substring(5).contains("help")){
-            return "Returns description of a command\nHelp <command>";
-         }
-         else if(input.substring(5).contains("quit")){
-            return "Quits the program\nQuit";
-         }
-         else if(input.substring(5).contains("test")){
-            return "Runs the unit tester\nTest <testnumber>";
-         }
-         else if(input.substring(5).contains("me")){
-            return "I'm sorry, I don't know if I can help you, man";
-         }
-         else{
-            return input.substring(5) + " is not a valid command";
-         }
-      }
-      else{
-         return "Your commands are\n1: Help\n2: Quit\n3: Test 1";
-      }
+      return "Your commands are\n1: Help\n2: Quit\n3: Test 1";
    }
 }
