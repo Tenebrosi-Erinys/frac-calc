@@ -1,13 +1,12 @@
 import java.util.Scanner;
 public class FracCalc{
-   static char op;
+   
    public static Scanner userInput = new Scanner(System.in); 
    public static void main(String args[]){
       //the loop stops when hasQuit returns true, so that it exits the loop and the program
       while(true){
          System.out.print("Enter: ");
          String input = userInput.nextLine();
-         Scanner parser = new Scanner(input);
          //normalizes input to allow for any combination of capitals and lowercase
          input = input.toLowerCase();
          if(input.startsWith("quit")){
@@ -31,7 +30,7 @@ public class FracCalc{
       }
    }
    public static String processHelp(){
-      return "Your commands are\n1: Help\n2: Quit\n3: Test 1";
+      return "Your commands are\n1: Help\n2: Quit\n3: Test 1\n4: Any expression.\nTo write an expression, write fractions seperated by spaces.\nTo write mixed numbers, write the whole number, followed by an underscore, followed by the fraction.";
    }
    public static int processWholeNum(String number){
       if(number.contains("_")){
@@ -43,28 +42,30 @@ public class FracCalc{
       }
    }
    public static String processExpressions(String input){
-      int whole1 = 0;
-      int whole2 = 0;
-      int num1 = 0;
-      int num2 = 0;
-      int den1 = 0;
-      int den2 = 0;
-      input = input.replaceAll(" ", "");
+      //initializes all of these integers
+      int whole1, whole2, num1, num2, den1, den2;
+      Scanner parser = new Scanner(input);
       //find first whole number
-      
-      String firstEntireNum = findFirstNum(input);
-      System.out.println(firstEntireNum);
-      System.out.println(op);
-      
-      String secondEntireNum = findFirstNum(input);
-      //whole2 = processWholeNum(secondEntireNum);
-      //whole1 = processWholeNum(firstEntireNum);
-      //tnum1 = processNumerator(firstEntireNum);
-      //num2 = processNumerator(secondEntireNum);
-      //den1 = processDenominator(firstEntireNum);
-      //den2 = processDenominator(secondEntireNum);
-      return "";
-     // return "Op:" + op + " Whole:" + whole2 + " Num:" + num2 + " Den:" + den2;
+      String firstEntireNum = parser.next();
+      String op = parser.next();
+      String secondEntireNum = parser.next();
+      whole2 = processWholeNum(secondEntireNum);
+      whole1 = processWholeNum(firstEntireNum);
+      num1 = processNumerator(firstEntireNum);
+      num2 = processNumerator(secondEntireNum);
+      den1 = processDenominator(firstEntireNum);
+      den2 = processDenominator(secondEntireNum);
+      //normalize the fraction
+      if(den1 < 0){
+         den1 = -den1;
+         num1 = -num1;
+      }
+      if(den2 < 0){
+         den2 = -den2;
+         num2 = -num2;
+      }
+      parser.close();
+      return "Op:" + op + " Whole:" + whole2 + " Num:" + num2 + " Den:" + den2;
    }
    public static int processNumerator(String number){
       if(number.contains("_")){
@@ -79,23 +80,7 @@ public class FracCalc{
       if(number.contains("/")){
          return Integer.parseInt(number.substring(number.indexOf("/") + 1));
       } else {
-         return 0;
+         return 1;
       }
-   }
-   public static String findFirstNum(String s){
-      boolean hasDivided = false;
-      String num = "";
-      //matches (-num), num, /num, _num
-      for(int i = 0; s.substring(i, i + 1).matches("[-\\d\\/_]"); i++){
-         if(s.charAt(i) == '/'){
-            if(hasDivided == true){
-               return num;
-            }
-            hasDivided = true;
-         }
-         num = num + s.charAt(i);
-         op = s.charAt(i + 1);
-      }
-      return num;
    }
 }
