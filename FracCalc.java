@@ -24,7 +24,7 @@ public class FracCalc{
    //processes the command given in a parameter
    public static String processCommand(String input){
       //checks if the unit test runner returns true, and lets unit test runner do all the work
-      if(UnitTestRunner.processCommand(input)){
+      if(!input.equals("") && UnitTestRunner.processCommand(input)){
          return "";
       //if help is in the command, return help
       } else if(input.startsWith("help")){
@@ -63,11 +63,9 @@ public class FracCalc{
          //parses the first/second denominator
          den1 = processDenominator(firstEntireNum);
          den2 = processDenominator(secondEntireNum);
-      } catch (RuntimeException e){
+      } catch (Exception e){
          return "Not a valid expression";
       }
-      
-      parser.close();
       //normalize the fraction
       if(den1 < 0){
          den1 = -den1;
@@ -77,14 +75,10 @@ public class FracCalc{
          den2 = -den2;
          num2 = -num2;
       }
-      //turns mixed into improper
-      num1 += whole1 * den1;
-      //have to account for negative whole number, positive numerator when it should be negative/negative
-      if(whole2 < 0){
-         num2 = -num2 + whole2 * den2;
-      } else {
-         num2 += whole2 * den2;
-      }
+      num1 = mixedToImproper(whole1, num1, den1);
+      whole1 = 0;
+      num2 = mixedToImproper(whole2, num2, den2);
+      whole2 = 0;
       
       //makes both fractions have the same denominator
       int fDen = den1 * den2;
@@ -93,6 +87,18 @@ public class FracCalc{
       
       if(op.equals("+")){
          num1 += num2;
+      } else if(op.equals("-")){
+         num1 -= num2;
+      } else if(op.equals("*")){
+         num1 *= num2;
+         fDen *= fDen;
+      } else if(op.equals("/")){
+         num1 *= fDen;
+         fDen *= num2;
+      }
+      if(fDen < 0 && num1 < 0){
+         fDen = -fDen;
+         num1 = -num1;
       }
       for(int test = 2; test <= fDen; test++){
          while(fDen % test == 0 && num1 % test == 0){
@@ -100,19 +106,28 @@ public class FracCalc{
             num1 /= test;
          }
       }
-      if(num1 != 0){whole1 = 0;
-         while(num1 >= fDen){
-            num1 -= fDen;
-            whole1++;
+      if(num1 != 0){
+         whole1 = 0;
+         while(Math.abs(num1) >= fDen){
+            if(num1 < 0){
+               num1 += fDen;
+               whole1--;
+            }
+            if(num1 > 0){
+               num1 -= fDen;
+               whole1++;
+            }
          }
       }
-      
+      if(whole1 < 0 && num1 < 0){
+         num1 = -num1;
+      }
       String returnString = "";
       if(whole1 != 0){
          returnString += whole1;
       }
       if(whole1 != 0 && num1 != 0){
-         returnString += " ";
+         returnString += "_";
       }
       if(num1 != 0){
          returnString += num1 + "/" + fDen;
@@ -120,9 +135,25 @@ public class FracCalc{
       if(whole1 == 0 && num1 == 0){
          returnString = "0";
       }
-      return returnString;
+      //if the input still has more, call processExpressions again
+      if(parser.hasNext()){
+         return processExpressions(returnString + parser.nextLine());
+      }
+      //final return, replace all _ with spaces to work with the unit test
+      else{
+         returnString = returnString.replaceAll("_"," ");
+         return returnString;
+      }
    }
-   
+   //turns mixed fractions into improper, returns the new numerator
+   public static int mixedToImproper(int whole, int num, int den){
+      if(whole < 0){
+         num = -num + whole * den;
+      } else {
+         num += whole * den;
+      }
+      return num;
+   }
    public static int processWholeNum(String number){
       //if the number has a _, then the whole number is between the start and _.
       if(number.contains("_")){
