@@ -16,8 +16,8 @@
   <Frame>
     <Bounds>
       <AutoSize>true</AutoSize>
-      <X>230</X>
-      <Y>200</Y>
+      <X>180</X>
+      <Y>240</Y>
       <W>62</W>
       <H>44</H>
     </Bounds>
@@ -27,23 +27,6 @@
     <Viewer>
       <ScopeID>0</ScopeID>
       <Expression>`local int` num2</Expression>
-      <ViewerClass>_X_ElementView</ViewerClass>
-    </Viewer>
-  </Frame>
-  <Frame>
-    <Bounds>
-      <AutoSize>true</AutoSize>
-      <X>70</X>
-      <Y>200</Y>
-      <W>62</W>
-      <H>44</H>
-    </Bounds>
-    <LabelLoc>
-      <WO>false</WO>
-    </LabelLoc>
-    <Viewer>
-      <ScopeID>0</ScopeID>
-      <Expression>`local int` whole1</Expression>
       <ViewerClass>_X_ElementView</ViewerClass>
     </Viewer>
   </Frame>
@@ -67,6 +50,23 @@
   <Frame>
     <Bounds>
       <AutoSize>true</AutoSize>
+      <X>240</X>
+      <Y>240</Y>
+      <W>62</W>
+      <H>44</H>
+    </Bounds>
+    <LabelLoc>
+      <WO>false</WO>
+    </LabelLoc>
+    <Viewer>
+      <ScopeID>0</ScopeID>
+      <Expression>`local int` den2</Expression>
+      <ViewerClass>_X_ElementView</ViewerClass>
+    </Viewer>
+  </Frame>
+  <Frame>
+    <Bounds>
+      <AutoSize>true</AutoSize>
       <X>180</X>
       <Y>100</Y>
       <W>62</W>
@@ -78,6 +78,57 @@
     <Viewer>
       <ScopeID>0</ScopeID>
       <Expression>`local int` fDen</Expression>
+      <ViewerClass>_X_ElementView</ViewerClass>
+    </Viewer>
+  </Frame>
+  <Frame>
+    <Bounds>
+      <AutoSize>true</AutoSize>
+      <X>70</X>
+      <Y>240</Y>
+      <W>62</W>
+      <H>44</H>
+    </Bounds>
+    <LabelLoc>
+      <WO>false</WO>
+    </LabelLoc>
+    <Viewer>
+      <ScopeID>0</ScopeID>
+      <Expression>`local int` whole2</Expression>
+      <ViewerClass>_X_ElementView</ViewerClass>
+    </Viewer>
+  </Frame>
+  <Frame>
+    <Bounds>
+      <AutoSize>true</AutoSize>
+      <X>70</X>
+      <Y>200</Y>
+      <W>62</W>
+      <H>44</H>
+    </Bounds>
+    <LabelLoc>
+      <WO>false</WO>
+    </LabelLoc>
+    <Viewer>
+      <ScopeID>0</ScopeID>
+      <Expression>`local int` whole1</Expression>
+      <ViewerClass>_X_ElementView</ViewerClass>
+    </Viewer>
+  </Frame>
+  <Frame>
+    <Bounds>
+      <AutoSize>true</AutoSize>
+      <X>240</X>
+      <Y>200</Y>
+      <W>62</W>
+      <H>44</H>
+    </Bounds>
+    <LabelLoc>
+      <WO>false</WO>
+    </LabelLoc>
+    <Viewer>
+      <ScopeID>0</ScopeID>
+      <Expression>`local int` den1</Expression>
       <ViewerClass>_X_ElementView</ViewerClass>
     </Viewer>
   </Frame>
